@@ -1,15 +1,24 @@
 package com.adem.View;
 
+import java.io.File;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class ErrorView {
 
+	private static String musicFile = "images/click.wav";     
+	private static Media sound = new Media(new File(musicFile).toURI().toString());
+	private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
+	
+	
 	public static void display(String message) {
 		ErrorView view = new ErrorView();
 		Stage window = new Stage();
@@ -19,7 +28,10 @@ public class ErrorView {
 		
 		Button btn = new Button("OK");
 		GridPane.setConstraints(btn,0, 1);
-		btn.setOnAction(e -> window.close());
+		btn.setOnAction(e -> {
+			mediaPlayer.play();
+			window.close();
+		});
 		
 		Pane layout = new GridPane();
 		layout.getChildren().addAll(label,btn);

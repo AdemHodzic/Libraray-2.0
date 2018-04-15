@@ -1,5 +1,6 @@
 package com.adem.Controller;
 
+import java.io.File;
 import java.util.List;
 
 import com.adem.Database.Database;
@@ -14,9 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class PopupViewController {
+	
+	private static String musicFile = "images/click.wav";     
+	private static Media sound = new Media(new File(musicFile).toURI().toString());
+	private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 	
 	private static final int WIDTH=768;
 	private static final int HEIGHT=288;
@@ -40,7 +47,10 @@ public class PopupViewController {
 		GridPane.setConstraints(booksTakenLabel, 0, 2);
 		GridPane.setConstraints(btn,0,3);
 		
-		btn.setOnAction(e -> window.close());
+		btn.setOnAction(e -> {
+			mediaPlayer.play();
+			window.close();	
+		});
 		
 		layout.getChildren().addAll(usernameLabel,userNumberLabel,booksTakenLabel,btn);
 		layout.setId("Layout");
@@ -82,7 +92,10 @@ public class PopupViewController {
 		GridPane.setConstraints(btn,2,0);
 		GridPane.setConstraints(labels,0,1);
 		
-		btn.setOnAction(e -> database.takeBook(user, input.getText()));
+		btn.setOnAction(e -> {
+			mediaPlayer.play();
+			database.takeBook(user, input.getText());
+		});
 		
 		Pane layout = new GridPane();
 		layout.getChildren().addAll(booknameLabel, input, labels,btn);
@@ -129,7 +142,10 @@ public class PopupViewController {
 		GridPane.setConstraints(btn,2,0);
 		GridPane.setConstraints(books,0,1);
 		
-		btn.setOnAction(e -> database.returnBook(user, input.getText()));
+		btn.setOnAction(e -> {
+			mediaPlayer.play();
+			database.returnBook(user, input.getText());
+		});
 		
 		Pane layout = new GridPane();
 		layout.getChildren().addAll(label,input,btn,books);
@@ -160,7 +176,10 @@ public class PopupViewController {
 		GridPane.setConstraints(input,1,0);
 		GridPane.setConstraints(btn,2,0);
 		
-		btn.setOnAction(e -> database.addBook(input.getText()));
+		btn.setOnAction(e -> {
+			mediaPlayer.play();
+			database.addBook(input.getText());
+		});
 		
 		Pane layout = new GridPane();
 		layout.getChildren().addAll(label,input,btn);

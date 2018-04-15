@@ -1,5 +1,6 @@
 package com.adem.View;
 
+import java.io.File;
 import java.util.List;
 
 import com.adem.Controller.Controller;
@@ -17,11 +18,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LoginView {
 	
 	private static int WIDTH=768;
 	private static int HEIGHT=432;
+	
+	private static String musicFile = "images/click.wav";     
+	private static Media sound = new Media(new File(musicFile).toURI().toString());
+	private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 	
 	
 	public static Scene initialzeStartupView() {
@@ -44,8 +51,14 @@ public class LoginView {
 		GridPane.setConstraints(loginButton, 0, 3);
 		GridPane.setConstraints(registerButton, 1, 3);
 		
-		loginButton.setOnAction(e -> login(usernameInput.getText(), passwordInput.getText()));
-		registerButton.setOnAction(e -> register(usernameInput.getText(), passwordInput.getText()));
+		loginButton.setOnAction(e -> {
+			mediaPlayer.play();
+			login(usernameInput.getText(), passwordInput.getText());
+		});
+		registerButton.setOnAction(e -> {
+			mediaPlayer.play();
+			 register(usernameInput.getText(), passwordInput.getText());
+		});
 		
 		usernameInput.setPromptText("username");
 		passwordInput.setPromptText("password");
@@ -81,6 +94,9 @@ public class LoginView {
 	}
 	
 	private static void register(String username, String password) {
+		if(username.equals(null) || password.equals(null))
+			ErrorView.display("TextFields must not be empty!");
+		
 		List<User> list = Database.readAllUsers();
 		for(User user:list) {
 			if(user.getUserName().equals(username)) {

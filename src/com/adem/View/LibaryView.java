@@ -1,5 +1,7 @@
 package com.adem.View;
 
+import java.io.File;
+
 import com.adem.Controller.Controller;
 import com.adem.Entities.User;
 
@@ -10,12 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LibaryView {
 	
 	private static int WIDTH=768;
 	private static int HEIGHT=432;
 	
+	private static String musicFile = "images/click.wav";     
+	private static Media sound = new Media(new File(musicFile).toURI().toString());
+	private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 	
 	public static Scene display(User user) {
 		Pane layout = new GridPane();
@@ -28,11 +35,26 @@ public class LibaryView {
 		
 		
 		
-		takeBookButton.setOnAction(e -> takeBook(user));
-		returnBookButton.setOnAction(e -> returnBook(user));
-		donateBookButton.setOnAction(e -> donateBook());
-		logoutButton.setOnAction(e -> logout());
-		userDetailsButton.setOnAction(e -> userDetails(user));
+		takeBookButton.setOnAction(e -> {
+			mediaPlayer.play();
+			takeBook(user);
+		});
+		returnBookButton.setOnAction(e -> {
+			mediaPlayer.play(); 
+			returnBook(user);
+		});
+		donateBookButton.setOnAction(e -> {
+			mediaPlayer.play();
+			donateBook();
+		});
+		logoutButton.setOnAction(e -> {
+			mediaPlayer.play();
+			logout();
+		});
+		userDetailsButton.setOnAction(e -> {
+			mediaPlayer.play();
+			userDetails(user);
+		});
 		
 		label.setId("Label");
 		
